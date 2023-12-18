@@ -29,24 +29,19 @@ export default class App extends Component {
       Notify.warning("Error! You must specify a keyword to search for.")
       return
     }
-    if (query !== prevState.query) {
-      this.setState({
-          hits: [],
-          page: 1,
-          loadMore: false
-        })
-    }
-       
+         
     if (page !== prevState.page || query !== prevState.query) {
+
       try {
         let data = await fetchImgs(query, page)
         console.log('Hits:', data.hits);
+
         if (data.hits && data.hits.length > 0) {
 
-          if (prevState.hits.length === 0) {
+          if (page === 1) {
             Notify.success(`Hooray! We found ${data.totalHits} images.`)
           }
-          
+                            
           this.setState((prevState) => ({
             hits: [...prevState.hits, ...data.hits],
             loadMore: this.state.page < Math.ceil(data.totalHits / 12 )
@@ -56,6 +51,7 @@ export default class App extends Component {
           Notify.failure("Sorry, there are no images matching your search query. Please try again.")
         }
       }
+
       catch (error) {
         console.error(error.message);
       }
@@ -69,8 +65,14 @@ export default class App extends Component {
       Notify.warning("Error! You are already searching for this keyword.")
       return
     }
-    this.setState({ query })
-  };
+    
+    this.setState({
+      query,
+      hits: [],
+      page: 1,
+      loadMore: false
+    })
+  }
 
   handleLoadMoreButton = _ => {
     this.setState((prevState) => ({ page: prevState.page + 1 }))
