@@ -1,8 +1,20 @@
 import { Component } from "react";
 
+import { Notify } from 'notiflix/build/notiflix-notify-aio.js';
+
+Notify.init({
+    width: '300px',
+    position: 'left-top',
+    fontSize: '16px',    
+});
+
 export default class Searchbar extends Component {
      state = {  
-        query: ''  
+         query: ''
+    }
+
+    shouldComponentUpdate(_, nextState) {         
+        return this.state.query !== nextState.query
     }
 
     handelChange = evt => {
@@ -12,7 +24,12 @@ export default class Searchbar extends Component {
 
     handelFormSubmit = evt => {
         const { query } = this.state
-        evt.preventDefault()       
+        evt.preventDefault()
+        if (query.trim() === '') {
+            Notify.warning("Error! You must specify a keyword to search for.");
+            this.reset()
+            return
+        }    
         this.props.onSubmit(query)
         this.reset()
     }
