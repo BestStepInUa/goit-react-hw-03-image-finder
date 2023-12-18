@@ -43,7 +43,7 @@ export default class App extends Component {
           
           this.setState((prevState) => ({
             hits: [...prevState.hits, ...data.hits],
-            loadMore: this.state.page < Math.ceil(data.totalHits / 36 )
+            loadMore: this.state.page < Math.ceil(data.totalHits / 12 )
           }))
 
         } else {
