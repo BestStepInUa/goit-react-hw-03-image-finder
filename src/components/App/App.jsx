@@ -1,11 +1,10 @@
 import { Component } from "react";
 import { Notify } from 'notiflix/build/notiflix-notify-aio.js';
 
-import Searchbar from "components/Searchbar/";
-
 import fetchImgs from "components/helpers/API";
 
 import AppContainer from './App.styled'
+import Searchbar from "components/Searchbar/";
 import ImageGallery from "components/ImageGallery";
 import LoadMoreButton from "components/LoadMoreButton";
 
@@ -29,6 +28,13 @@ export default class App extends Component {
     if (query === '') {
       Notify.warning("Error! You must specify a keyword to search for.")
       return
+    }
+    if (query !== prevState.query) {
+      this.setState({
+          hits: [],
+          page: 1,
+          loadMore: false
+        })
     }
        
     if (page !== prevState.page || query !== prevState.query) {
