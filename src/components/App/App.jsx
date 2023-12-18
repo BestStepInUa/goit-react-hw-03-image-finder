@@ -28,13 +28,8 @@ export default class App extends Component {
       Notify.warning("Error! You must specify a keyword to search for.")
       return
     }
-
-    if (query === prevState.query) {
-      console.log(query === prevState.query);
-      Notify.warning("Error! You are already searching for this keyword.")
-      return
-    }   
-    
+    console.log(prevState.query);
+   
     if (page !== prevState.page || query !== prevState.query) {
       try {
         let data = await fetchImgs(query, page)
@@ -55,6 +50,10 @@ export default class App extends Component {
   
   handleSearchbarSubmit = query => {
     console.log('query:', query)
+    if (query === this.state.query) {      
+      Notify.warning("Error! You are already searching for this keyword.")
+      return
+    }   
     this.setState({query})
   };
 
