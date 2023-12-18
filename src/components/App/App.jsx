@@ -36,10 +36,15 @@ export default class App extends Component {
         let data = await fetchImgs(query, page)
         console.log('Hits:', data.hits);
         if (data.hits && data.hits.length > 0) {
-          Notify.success(`Hooray! We found ${data.totalHits} images.`)
-          this.setState({ hits: data.hits })
-          this.setState((prevState) => ({ page: prevState.page + 1 }))
-          this.setState({loadMore: true})
+
+          if (prevState.hits.length === 0) {
+            Notify.success(`Hooray! We found ${data.totalHits} images.`)
+          }
+          
+          this.setState((prevState) => ({
+            hits: [...prevState.hits, ...data.hits],
+            loadMore: this.state.page < Math.ceil(data.totalHits / 36 )
+          }))
 
         } else {
           Notify.failure("Sorry, there are no images matching your search query. Please try again.")
@@ -61,24 +66,8 @@ export default class App extends Component {
     this.setState({ query })
   };
 
-  async handleLoadMoreButton() {
-    const { query, page} = this.state
-    console.log('Load more');
-    try {
-      let data = await fetchImgs(query, page)
-      console.log('Hits:', data.hits);
-      if (data.hits && data.hits.length > 0) {
-        this.setState((prevState) => ({ hits: [...prevState.hits, ...data.hits] }))
-        this.setState((prevState) => ({ page: prevState.page + 1 }))
-
-      } else {
-        Notify.failure("Sorry, there are no images matching your search query. Please try again.")
-      }
-    }
-    catch (error) {
-      console.error(error.message);
-    }
-      
+  handleLoadMoreButton = _ => {
+    this.setState((prevState) => ({ page: prevState.page + 1 }))
   }
 
   render() {
