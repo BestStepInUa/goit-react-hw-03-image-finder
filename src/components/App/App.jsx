@@ -90,10 +90,10 @@ export default class App extends Component {
       return (
         <AppContainer>
           <Searchbar onSubmit={this.handleSearchbarSubmit} />
-          {loader && <Loader></Loader>}
+          {loader && <Loader/>}
           {hits.length > 0 && <ImageGallery hits={hits} />}          
-          {loadMore > 0 && <LoadMoreButton onLoadMoreButtonClick={this.handleLoadMoreButton} />} 
-       </AppContainer>
+          {loadMore > 0 && <LoadMoreButton onLoadMoreButtonClick={this.handleLoadMoreButton} />}
+        </AppContainer>
           
         
       )
