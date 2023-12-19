@@ -10,8 +10,7 @@ const Loader = () => {
             color = 'green'
             ariaLabel = 'three-dots-loading'
         />
-        </div>
-        
+        </div>        
     )
 }
 
