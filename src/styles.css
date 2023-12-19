@@ -53,6 +53,7 @@ img {
  * Стили компонента SearchForm
  */
 .SearchForm {
+  position: relative;
   display: flex;
   align-items: center;
   width: 100%;
@@ -196,4 +197,15 @@ img {
 .Button:hover,
 .Button:focus {
   background-color: #303f9f;
+}
+
+/*
+* Стили компонента Loader
+*/
+.Loader {
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(0, -50%);
 }

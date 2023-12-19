@@ -7,6 +7,7 @@ import AppContainer from './App.styled'
 import Searchbar from "components/Searchbar/";
 import ImageGallery from "components/ImageGallery";
 import LoadMoreButton from "components/LoadMoreButton";
+import Loader from "components/Loader";
 
 Notify.init({
     width: '300px',
@@ -19,7 +20,8 @@ export default class App extends Component {
     query: '',
     page: 1,
     hits: [],
-    loadMore: false
+    loadMore: false,
+    loader: false
   }
 
   async componentDidUpdate(_, prevState) {
@@ -33,6 +35,7 @@ export default class App extends Component {
     if (page !== prevState.page || query !== prevState.query) {
 
       try {
+        this.setState({loader: true})
         let data = await fetchImgs(query, page)
         console.log('Hits:', data.hits);
 
@@ -54,6 +57,10 @@ export default class App extends Component {
 
       catch (error) {
         console.error(error.message);
+      }
+
+      finally {
+        this.setState({loader: false})
       }
       
     }
@@ -79,11 +86,12 @@ export default class App extends Component {
   }
 
   render() {
-      const {hits, loadMore} = this.state
+      const {hits, loadMore, loader} = this.state
       return (
         <AppContainer>
           <Searchbar onSubmit={this.handleSearchbarSubmit} />
-          <ImageGallery hits={hits} />
+          {loader && <Loader></Loader>}
+          {hits.length > 0 && <ImageGallery hits={hits} />}          
           {loadMore > 0 && <LoadMoreButton onLoadMoreButtonClick={this.handleLoadMoreButton} />} 
        </AppContainer>
           
