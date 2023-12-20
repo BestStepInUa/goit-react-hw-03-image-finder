@@ -88,8 +88,8 @@ export default class App extends Component {
     this.setState((prevState) => ({ page: prevState.page + 1 }))
   }
 
-  handleHitClick = hit => {
-    this.setState(({ selectedHit: hit }), ()=>console.log(this.state.selectedHit))
+  handleHitClick = ({ largeImageURL, tags }) => {
+    this.setState(({ selectedHit: { largeImageURL, tags } }), () => console.log('selectedHit: ', this.state.selectedHit))
     this.toggleModal()
   }
 
@@ -106,11 +106,9 @@ export default class App extends Component {
           <Searchbar onSubmit={this.handleSearchbarSubmit} />
           {loader && <Loader/>}
           {hits.length > 0 && <ImageGallery hits={hits} onHitClick={this.handleHitClick} />}
-          {isShowModal && <Modal hit={selectedHit} hideModal={this.toggleModal}/>}
+          {isShowModal && <Modal selectedHit={selectedHit} hideModal={this.toggleModal}/>}
           {loadMore > 0 && <LoadMoreButton onLoadMoreButtonClick={this.handleLoadMoreButton} />}
-        </AppContainer>
-          
-        
+        </AppContainer>  
       )
     }
   }

@@ -7,10 +7,6 @@ export default class Modal extends Component {
         }
     }
 
-    // handleOverlayClick = evt => {
-    //     console.log(evt.currentTarget);
-    // }
-
     componentDidMount() {
 		document.addEventListener('keydown', this.handleEscClick)
 	}
@@ -19,16 +15,13 @@ export default class Modal extends Component {
 		document.removeEventListener('keydown', this.handleEscClick)
     }
     
-    render() {
-        
-
-        const { hit } = this.props;
-        console.log(this.props);
-        
+    render() {    
+        const {largeImageURL, tags} = this.props.selectedHit;
+                
         return (
-            <div className="Overlay" onClick={this.handleOverlayClick}>
+            <div className="Overlay">
                 <div className="Modal">
-                    <img src={hit.largeImageURL} alt={hit.tag} />
+                    <img src={largeImageURL} alt={tags} />
                 </div>
             </div>
         )
