@@ -89,7 +89,7 @@ export default class App extends Component {
   }
 
   handleHitClick = hit => {
-    this.setState({ selectedHit: hit })
+    this.setState(({ selectedHit: hit }), ()=>console.log(this.state.selectedHit))
     this.toggleModal()
   }
 
@@ -105,7 +105,7 @@ export default class App extends Component {
         <AppContainer>
           <Searchbar onSubmit={this.handleSearchbarSubmit} />
           {loader && <Loader/>}
-          {hits.length > 0 && <ImageGallery hits={hits} showModal={this.toggleModal} onHitClick={this.handleHitClick} />}
+          {hits.length > 0 && <ImageGallery hits={hits} onHitClick={this.handleHitClick} />}
           {isShowModal && <Modal hit={selectedHit} hideModal={this.toggleModal}/>}
           {loadMore > 0 && <LoadMoreButton onLoadMoreButtonClick={this.handleLoadMoreButton} />}
         </AppContainer>

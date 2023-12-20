@@ -23,7 +23,7 @@ export default class Modal extends Component {
         
 
         const { hit } = this.props;
-        console.log(this.props.hit);
+        console.log(this.props);
         
         return (
             <div className="Overlay" onClick={this.handleOverlayClick}>

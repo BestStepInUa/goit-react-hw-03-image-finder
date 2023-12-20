@@ -1,8 +1,8 @@
-const ImageGalleryItem = ({ smallImg, desc, onHitClick }) => {
-    
+const ImageGalleryItem = ({ hit, onHitClick }) => {
+        
     return (
         <li className="ImageGalleryItem">
-            <img className="ImageGalleryItem-image" src={smallImg} alt={desc} onClick={onHitClick}/>
+            <img className="ImageGalleryItem-image" src={hit.webformatURL} alt={hit.tag} onClick={onHitClick(hit)}/>
         </li>
     )
 }
