@@ -1,7 +1,8 @@
-const ImageGalleryItem = ({ smallImg, largeImg, desc }) => {
+const ImageGalleryItem = ({ smallImg, desc, onHitClick }) => {
+    
     return (
         <li className="ImageGalleryItem">
-            <img className="ImageGalleryItem-image" src={smallImg} alt={desc} data-large-img={largeImg} />
+            <img className="ImageGalleryItem-image" src={smallImg} alt={desc} onClick={onHitClick}/>
         </li>
     )
 }

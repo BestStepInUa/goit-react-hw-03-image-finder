@@ -8,6 +8,7 @@ import Searchbar from "components/Searchbar/";
 import ImageGallery from "components/ImageGallery";
 import LoadMoreButton from "components/LoadMoreButton";
 import Loader from "components/Loader";
+import Modal from "components/Modal/Modal";
 
 Notify.init({
     width: '300px',
@@ -20,8 +21,10 @@ export default class App extends Component {
     query: '',
     page: 1,
     hits: [],
+    selectedHit: null,
     loadMore: false,
-    loader: false
+    loader: false,
+    isShowModal: false
   }
 
   async componentDidUpdate(_, prevState) {
@@ -85,13 +88,25 @@ export default class App extends Component {
     this.setState((prevState) => ({ page: prevState.page + 1 }))
   }
 
+  handleHitClick = hit => {
+    this.setState({ selectedHit: hit })
+    this.toggleModal()
+  }
+
+  toggleModal = () => {
+		this.setState((prevState) => ({
+			isShowModal: !prevState.isShowModal,
+		}))
+	}
+
   render() {
-      const {hits, loadMore, loader} = this.state
+      const {hits, loadMore, loader, isShowModal, selectedHit} = this.state
       return (
         <AppContainer>
           <Searchbar onSubmit={this.handleSearchbarSubmit} />
           {loader && <Loader/>}
-          {hits.length > 0 && <ImageGallery hits={hits} />}          
+          {hits.length > 0 && <ImageGallery hits={hits} showModal={this.toggleModal} onHitClick={this.handleHitClick} />}
+          {isShowModal && <Modal hit={selectedHit} hideModal={this.toggleModal}/>}
           {loadMore > 0 && <LoadMoreButton onLoadMoreButtonClick={this.handleLoadMoreButton} />}
         </AppContainer>
           
