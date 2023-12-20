@@ -1,14 +1,14 @@
 import { Component } from "react";
-import { Notify } from 'notiflix/build/notiflix-notify-aio.js';
+import { Notify } from "notiflix/build/notiflix-notify-aio.js";
 
 import fetchImgs from "components/helpers/API";
 
-import AppContainer from './App.styled'
+import AppContainer from "./App.styled";
 import Searchbar from "components/Searchbar/";
 import ImageGallery from "components/ImageGallery";
 import LoadMoreButton from "components/LoadMoreButton";
 import Loader from "components/Loader";
-import Modal from "components/Modal/Modal";
+import Modal from "components/Modal"
 
 Notify.init({
     width: '300px',
