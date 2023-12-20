@@ -202,7 +202,6 @@ img {
 * Стили компонента Loader
 */
 .Loader {
-  margin: 0 auto;
   position: fixed;
   top: 50%;
   left: 50%;
